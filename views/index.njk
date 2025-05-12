@@ -74,7 +74,27 @@
 
 </main>
 
-
+{% for tweet in tweets %}
+<main class="container">
+    <ul>
+        <li class="post">
+            <article>
+                <header>
+                    <h2>{{post.title}}</h2>
+                </header>
+                <p>{{tweet.message}}</p>
+                <footer>
+                    <ul>
+                        <li><a href="/{{post.id}}/edit">edit</a></li>
+                        <li>Reply</li>
+                        <li><a href="/{{post.id}}/delete">delete</a></li>
+                    </ul>
+                </footer>
+            </article>
+        </li>
+    </ul>
+</main>
+{%endfor%}
 
 
 
