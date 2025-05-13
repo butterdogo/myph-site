@@ -8,12 +8,17 @@ import db from "../db-sqlite.js"
 const router = express.Router()
 
 router.get("/", async (req, res) => {
+  const result = await db.all("SELECT * FROM post")
+
 
   res.render("index.njk", {
     title: "My Pocket Henrik",
-   
-  })
-})
+    posts: result
+  });
+
+});
+
+
 
 router.get("/login", async (req, res) => {
 
@@ -26,26 +31,26 @@ router.get("/login", async (req, res) => {
 
 
 router.post("/login", async (req, res) => {
-  const {username} = req.body
-  const {password} = req.body
+  const { username } = req.body
+  const { password } = req.body
 
   const dbpassword = await db.get('Select password FROM login WHERE name = ?', username)
-    
 
-  if(dbpassword != ""){
-  bcrypt.compare(password, dbpassword.password, function(err, result) {
-      if (result == true){
+
+  if (dbpassword != "") {
+    bcrypt.compare(password, dbpassword.password, function (err, result) {
+      if (result == true) {
         console.log("rätt")
         req.session.loggedin = true
         res.redirect("/post")
       }
-      else{
+      else {
         console.log("fel")
         res.redirect("/login")
       }
-  });
-  
-  } else{res.redirect("/login")}
+    });
+
+  } else { res.redirect("/login") }
 
 })
 
@@ -54,21 +59,29 @@ router.get("/post", async (req, res) => {
 
   if (req.session.loggedin === true) {
     res.render("post.njk")
-  } else{
+  } else {
     res.redirect("/login")
   }
-  
+
 
 })
 
 
 router.post('/post', async (req, res) => {
   const { title, message } = req.body
-  
-  const [result] = await db.run('INSERT INTO post (title, message) VALUES (?, ?)', [title, message])
 
+  const result = await db.run('INSERT INTO post (title, message) VALUES (?, ?)', title, message)
 
+  console.log(result)
   res.redirect('/')
+})
+
+router.get("/:id/delete", async (req, res) => {
+  const id = req.params.id
+
+  await db.run('DELETE FROM post WHERE id = ?', id)
+
+  res.redirect("/")
 })
 
 

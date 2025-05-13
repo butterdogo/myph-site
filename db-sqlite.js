@@ -1,5 +1,6 @@
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
+import bcrypt from 'bcrypt'
 
 // Open a database connection
 const db = await open({
@@ -33,7 +34,17 @@ if (userCount.count === 0) {
   await db.run('INSERT INTO login (name) VALUES (?)', 'Anonymous');
 }
 
+/*
 
+let myPlaintextPassword = 'Mypocketlogin'
+bcrypt.hash(myPlaintextPassword, 10, async function(err, hash) {
+	// här får vi nu tag i lösenordets hash i variabeln hash
+	console.log(hash)
+
+  await db.run('INSERT INTO login (name, password) VALUES (?, ?)', 'Admin', hash);
+})
+
+*/
 
 // Export the database connection
 export default db;
