@@ -11,9 +11,13 @@ router.get("/", async (req, res) => {
   const result = await db.all("SELECT * FROM post ORDER BY created_at DESC;")
 
 
+  
+  
   res.render("index.njk", {
     title: "My Pocket Henrik",
-    posts: result
+    posts: result,
+    loggedin: req.session.loggedin,
+
   });
 
 });
@@ -89,6 +93,15 @@ router.get("/:id/delete", async (req, res) => {
 
 
 })
+
+router.get('/logout', async (req, res) => {
+
+  req.session.loggedin = false
+  res.redirect("/")
+
+
+})
+
 
 
 export default router

@@ -71,7 +71,7 @@
         </header>
         <p>{{post.message}}</p>
 
-        {% if (req.session.loggedin === true) %}
+        {% if loggedin == true %}
         <footer class="postfooter">
 
             <div class="edit">
@@ -87,7 +87,7 @@
             </div>
 
         </footer>
-        {%endif%}
+      {% endif %}
 
     </article>
 
