@@ -8,7 +8,7 @@ import db from "../db-sqlite.js"
 const router = express.Router()
 
 router.get("/", async (req, res) => {
-  const result = await db.all("SELECT * FROM post")
+  const result = await db.all("SELECT * FROM post ORDER BY created_at DESC;")
 
 
   res.render("index.njk", {
@@ -42,7 +42,7 @@ router.post("/login", async (req, res) => {
       if (result == true) {
         console.log("rätt")
         req.session.loggedin = true
-        res.redirect("/post")
+        res.redirect("/")
       }
       else {
         console.log("fel")
@@ -77,11 +77,17 @@ router.post('/post', async (req, res) => {
 })
 
 router.get("/:id/delete", async (req, res) => {
-  const id = req.params.id
+  if (req.session.loggedin === true) {
 
-  await db.run('DELETE FROM post WHERE id = ?', id)
+    const id = req.params.id
+    await db.run('DELETE FROM post WHERE id = ?', id)
 
-  res.redirect("/")
+    res.redirect("/")
+  } else {
+    res.redirect("/login")
+  }
+
+
 })
 
 
