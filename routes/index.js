@@ -4,6 +4,8 @@ import { createPool } from "mysql2"
 import bcrypt from "bcrypt"
 import pool from "../db.js"
 import db from "../db-sqlite.js"
+import { ExpressValidator } from "express-validator"
+import { body, matchedData, validationResult} from 'express-validator'
 
 const router = express.Router()
 
@@ -101,6 +103,7 @@ router.get('/logout', async (req, res) => {
 
 
 })
+
 
 
 

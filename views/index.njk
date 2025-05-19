@@ -18,6 +18,13 @@
         <li>
             <a href="https://mphenrik-forum.glitch.me/"><b>Forum</b></a>
         </li>
+
+        {% if loggedin == true%}
+        <li>
+            <a href="/logout"><b>Logout</b></a>
+        </li>
+        {% endif %}
+
     </ul>
 </nav>
 
@@ -60,13 +67,28 @@
 </div>
 
 
+
 <main class="container">
+
+
+
+{% if loggedin == true %}
+
+    <form class="postbuttonform" action="/post">
+        <input class="postbutton" type="submit" value="Post" />
+    </form>
+
+
+{% endif %}
+
+
+
     {% for post in posts %}
     <article>
         <header>
-           
+
             <time datetime="{{ post.updated_at }}">{{ post.updated_at }}</time>
-           
+
             <h1>{{post.title}}</h1>
         </header>
         <p>{{post.message}}</p>
@@ -76,7 +98,7 @@
 
             <div class="edit">
 
-                <a href="/edit">Edit</a>
+
 
             </div>
 
@@ -87,7 +109,7 @@
             </div>
 
         </footer>
-      {% endif %}
+        {% endif %}
 
     </article>
 
@@ -102,7 +124,6 @@
         <div class="footer-section">
             <h4>Kontakt</h4>
             <p>Email: <a href="mailto:info@exempel.se">info@exempel.se</a></p>
-            <p>Telefon: <a href="tel:+46701234567">+46 70 123 45 67</a></p>
             <p>Adress: Rådhusesplanaden 2C, 90328 Umeå</p>
         </div>
         <div class="footer-section">
@@ -120,7 +141,7 @@
 
     </div>
     <div class="footer-bottom">
-        <p>&copy; Olle Axelsson 2024. Alla rättigheter förbehållna.</p>
+        <p>&copy; Olle Axelsson 2025. Alla rättigheter förbehållna.</p>
     </div>
 </footer>
 
@@ -131,7 +152,7 @@
         timeElements.forEach(timeElement => {
             const date = new Date(timeElement.getAttribute("datetime"));
             const now = new Date();
-            const timeZoneOffset = (date.getTimezoneOffset()*60000)
+            const timeZoneOffset = (date.getTimezoneOffset() * 60000)
             const diffInSeconds = Math.floor((now - date + timeZoneOffset) / 1000);
             const diffInMinutes = Math.floor(diffInSeconds / 60);
             const diffInHours = Math.floor(diffInMinutes / 60);
