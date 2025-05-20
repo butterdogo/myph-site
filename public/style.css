@@ -194,13 +194,13 @@ body {
 .downloads {
 
     display: grid;
-    grid-template-columns: (1fr, 1fr);
+    grid-template-columns: (1fr 1fr);
 
     padding-top: 5rem;
     padding-bottom: 10rem;
 
 
-    .steam {
+    .box1 {
         grid-column-start: 1;
         grid-column-end: 2;
         color: rgb(0, 0, 0);
@@ -216,8 +216,8 @@ body {
         }
 
     }
-
-    .mobile {
+    
+    .box2 {
         grid-column-start: 2;
         grid-column-end: 3;
         color: rgb(0, 0, 0);
@@ -250,7 +250,6 @@ body {
     padding: 1rem;
 
     font-size: 1.4rem;
-    margin-bottom: 0.5 rem;
 
     background-color: rgb(229 223 235);
     border: 10px solid #fdc2d1;
